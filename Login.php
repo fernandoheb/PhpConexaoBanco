@@ -1,5 +1,4 @@
 <?php session_start(); ?>
-
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -16,16 +15,14 @@ and open the template in the editor.
         <?php include "config/cabecalho.php"; ?>
         <?php
         include 'config/bdconfig.php';
-          
-        
+
         function consulta($consulta) {
             $conn = conexao();
             $stmt = $conn->prepare($consulta);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-        
-     
+
         // INSERT
         if (isset($_POST['cadastrar'])) {
             $conexao = conexao();
@@ -75,11 +72,15 @@ and open the template in the editor.
                     echo $exc->getTraceAsString();
                 }
             }
-            
-            if(isset($_GET['update'])){
-                
-            }          
         }
+        if (isset($_GET['update'])) {
+            
+        }
+
+        if (isset($_POST['login'])) {
+            login($_POST['log_fun'], $_POST['sen_fun']);
+        }
+       
         ?>
     </head>
     <body>
@@ -89,14 +90,14 @@ and open the template in the editor.
             <div class="row">
                 <form method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
                     <div class="form-group">
-                        <label for="nom_pes">Nome</label>
-                        <input type="text" class="form-control" id="nom_pes"  name=nom_pes aria-describedby="Nome da pessoa" placeholder="Nome">                
-                    </div>      
+                        <label for="login">login</label>
+                        <input type="text" class="form-control" id="nom_pes"  name='log_fun' aria-describedby="Nome da pessoa" placeholder="Usuário">                
+                    </div>       
                     <div class="form-group">
-                        <label for="end_pes">Endereço</label>
-                        <input type="text" class="form-control" id="end_pes"  name=end_pes aria-describedby="endereço da pessoa" placeholder="endereco">                
+                        <label for="senha">senha</label>
+                        <input type="password" class="form-control" id="end_pes"  name='sen_fun' aria-describedby="inserir sua senha" placeholder="Senha">                
                     </div>   
-                    <button type="submit" class="btn btn-primary mb-2" name="cadastrar">Salvar</button>
+                    <button type="submit" class="btn btn-primary mb-2" name="login">Login</button>
                     <button type="reset" class="btn btn-warning mb-2" name="cancelar">Limpar</button>
                 </form>
             </div>
@@ -125,11 +126,11 @@ and open the template in the editor.
                             echo "<td> " . $linha['endereço'] . " </td>";
                             //Cria um link informando  o ID e a operação apagar através do método GET
                             echo "<td> "
-                            . "<a class='btn btn-danger' href=" . $_SERVER['PHP_SELF'] . 
-                                    "?apagar=" . $linha['id'] . "> Apagar </a> </td>";
+                            . "<a class='btn btn-danger' href=" . $_SERVER['PHP_SELF'] .
+                            "?apagar=" . $linha['id'] . "> Apagar </a> </td>";
                             echo "<td> "
-                            . "<a class='btn btn-success' href=" . $_SERVER['PHP_SELF'] . 
-                                    "?update=" . $linha['id'] . "> Atualizar </a> </td>";
+                            . "<a class='btn btn-success' href=" . $_SERVER['PHP_SELF'] .
+                            "?update=" . $linha['id'] . "> Atualizar </a> </td>";
                             echo "</tr>";
                         }
                         ?>
