@@ -1,5 +1,7 @@
 <?php
 
+
+
 const DRIVE = "pgsql";
 const ENDERECO = "localhost";
 const PORTA = "5433";
@@ -61,6 +63,28 @@ function login($log_fun, $sen_fun) {
         echo $exc->getTraceAsString();
     }
 }
+
+function consulta($consulta) {
+            $conn = conexao();
+            $stmt = $conn->prepare($consulta);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+function limpar($campo) {
+        if (isset($_POST[$campo])) {
+            return filter_input(INPUT_POST, $campo, FILTER_SANITIZE_STRING);
+        }
+        return "";
+    } 
+
+
+
+
+
+
+
+
 
 function inicia_sessao($login, $senha) {
     $_SESSION['usuario'] = $login;
