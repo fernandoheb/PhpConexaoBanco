@@ -11,17 +11,12 @@ and open the template in the editor.
         <title>Gestão de Pessoas</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <?php include "config/cabecalho.php"; ?>
+         <?php include "config/cabecalho.php"; ?>
+        <link rel="stylesheet" href="css/main.css">
+       
         <?php
         include 'config/bdconfig.php';
 
-        function consulta($consulta) {
-            $conn = conexao();
-            $stmt = $conn->prepare($consulta);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
 
         // INSERT
         if (isset($_POST['cadastrar'])) {
