@@ -47,6 +47,9 @@ footer {
 body{
     background-color: lightgray;
 }
+th {
+    text-transform: capitalize;
+}
 th,td{
     vertical-align: middle;
 }
