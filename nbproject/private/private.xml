@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Xampp/xampp/htdocs/PhpConexaoBanco/1611/index.php</file>
-            <file>file:/D:/Xampp/xampp/htdocs/PhpConexaoBanco/config/cabecalho.php</file>
+            <file>file:/D:/Xampp/xampp/htdocs/PhpConexaoBanco/dao/PessoaDAO.php</file>
+            <file>file:/D:/Xampp/xampp/htdocs/PhpConexaoBanco/css/main.css</file>
+            <file>file:/D:/Xampp/xampp/htdocs/PhpConexaoBanco/view/FormPessoa.php</file>
+            <file>file:/D:/Xampp/xampp/htdocs/PhpConexaoBanco/view/UpdatePessoa.php</file>
             <file>file:/D:/Xampp/xampp/htdocs/PhpConexaoBanco/config/bdconfig.php</file>
-            <file>file:/D:/Xampp/xampp/htdocs/PhpConexaoBanco/config/footer.php</file>
-            <file>file:/D:/Xampp/xampp/htdocs/PhpConexaoBanco/FormPessoa.php</file>
+            <file>file:/D:/Xampp/xampp/htdocs/PhpConexaoBanco/controller/pessoaCTR.php</file>
         </group>
     </open-files>
 </project-private>
