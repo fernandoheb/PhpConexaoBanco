@@ -1,7 +1,4 @@
 <?php
-
-
-
 const DRIVE = "pgsql";
 const ENDERECO = "localhost";
 const PORTA = "5433";
@@ -51,47 +48,65 @@ function login($log_fun, $sen_fun) {
             $statement->fetchAll(PDO::FETCH_ASSOC);
             if ($statement->rowCount() > 0):
                 echo "Usuário Encontrado";
-
                 inicia_sessao($login, $senha);
             else:
                 echo "Usuário Não cadastrado <br>";
                 insert_Login($login, $senha);
             endif;
         }
-        // }   
     } catch (Exception $exc) {
         echo $exc->getTraceAsString();
     }
 }
+//Função de consulta que Recebe os Campos, a tabela e potencialmente uma condição ou complementos do select
+//retorna o objeto statement de resultado com o conjunto de tuplas recuperadas pela pesquisa
+function consulta_Generica($campos='*', $tabela, $add=''){
+    if (empty($tabela))
+        return FALSE;
+    $sql = "select $campos from $tabela $add";
+    $conexao = conexao();
+    $stmt = $conexao->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);           
+}
 
-function consulta($consulta) {
-            $conn = conexao();
-            $stmt = $conn->prepare($consulta);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
+//função que verifica o maior valor de um campo de uma determinada tabela
+//retorna o valor númerico do resultado;
+function Max_id($campo, $tabela) {
+    $conn = conexao();
+    $stmt = $conn->prepare("select max($campo) as val from $tabela ");
+    $stmt->execute();
+    $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $valor = $resultado[0];
+    return $valor['val'];
+}
 
-function limpar($campo) {
-        if (isset($_POST[$campo])) {
-            return filter_input(INPUT_POST, $campo, FILTER_SANITIZE_STRING);
+//função para limpar um determinado $campo string ou inteiro
+// $int deve ser = false quando o campo é do tipo string e true quando for inteiro
+// retorna o valor após a sanitização do campo, caso o campo seja vazio retorna "" ou 0;
+function limpar($campo, $int = false) {
+    // Verifica se o campo não é inteiro
+    if (!$int) {
+        if (!empty($campo)) {
+            return filter_var($campo, FILTER_SANITIZE_STRING);
         }
         return "";
-    } 
+    } else {
+        if (!empty($campo)) {
+            return filter_var($campo, FILTER_SANITIZE_NUMBER_INT);
+        }
+        return 0;
+    }
+}
 
-
-
-
-
-
-
-
-
+//deverá ser mudada para dao de Login
 function inicia_sessao($login, $senha) {
     $_SESSION['usuario'] = $login;
     $_SESSION['senha'] = $senha;
     header("Location: FormPessoa.php");
 }
 
+//deve ser mudada para a controler de funcionário
 function insert_Login($usuario, $senha) {
     echo "Inserindo usuário <br>";
     $conexao = conexao();
