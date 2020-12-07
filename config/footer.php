@@ -1,5 +1,5 @@
 
-<footer class="footer">
+<footer class="footer text-center bg-light p-3">
     
     <small> Aula PHP <?php try {
  echo  $aula;    
