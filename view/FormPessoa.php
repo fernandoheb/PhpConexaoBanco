@@ -113,16 +113,23 @@ and open the template in the editor.
                 </form>
             </div>
 
+            
+            <?php 
+                    $consulta = 'select id_pes as id, nom_pes as Nome, end_pes as Endereço from pessoa';
+                    $campos ='id_pes as id, nom_pes as Nome, end_pes as Endereço';                            
+                    $resultado = consulta_pessoas($campos);
+                    //$resultado = consulta_Generica($campos, 'pessoa', 'where false');                                                        
+                if(count($resultado) > 0):      
+                    $linha = $resultado[0];
+            ?>
+                        
             <!-- Tabela de consulta -->
             <div class="row">
                 <table  class="table table-striped ">
                     <thead class="thead-dark">
                         <tr>
                             <?php
-                            $consulta = 'select id_pes as id, nom_pes as Nome, end_pes as Endereço from pessoa';
-                            $campos ='id_pes as id, nom_pes as Nome, end_pes as Endereço';
-                            $resultado = consulta_pessoas($campos);
-                            $linha = $resultado[0];
+                            
                             foreach ($linha as $coluna => $valor) {
                                 echo '<th scope="col"> ' . $coluna . ' </th>';
                             }
@@ -151,8 +158,16 @@ and open the template in the editor.
                     </tbody>
                 </table>
             </div>
+            <?php 
+                else: 
+                echo " <div class='row'> <h2 class='text-center'> Nenhum Registro Encontrado </h2> </div>";
+            
+                endif;
+               ?>
+            
+            
         </div>
-
+      
 
         <?php
         $aula = "- Insert";
