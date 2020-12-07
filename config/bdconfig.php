@@ -1,4 +1,5 @@
 <?php
+
 const DRIVE = "pgsql";
 const ENDERECO = "localhost";
 const PORTA = "5433";
@@ -6,9 +7,8 @@ const DBNAME = "projeto";
 const USER = "postgres";
 const PASSWORD = "root";
 
-try {
-
-    function conexao() {
+function conexao() {
+    try {
         $conexao = new PDO(DRIVE . ":host=" . ENDERECO . ";port=" . PORTA
                 . ";dbname=" . DBNAME . ";user=" . USER . ";password=" . PASSWORD);
 
@@ -18,11 +18,10 @@ try {
         if ($conexao) {
             return $conexao;
         }
+    } catch (PDOException $erro) {
+        echo "Não foi possível realizar a conexão <br>";
+        echo $erro->getMessage();
     }
-
-} catch (PDOException $erro) {
-    echo "Não foi possível realizar a conexão <br>";
-    echo $erro->getMessage();
 }
 
 function console($msg) {
@@ -58,16 +57,17 @@ function login($log_fun, $sen_fun) {
         echo $exc->getTraceAsString();
     }
 }
+
 //Função de consulta que Recebe os Campos, a tabela e potencialmente uma condição ou complementos do select
 //retorna o objeto statement de resultado com o conjunto de tuplas recuperadas pela pesquisa
-function consulta_Generica($campos='*', $tabela, $add=''){
+function consulta_Generica($campos = '*', $tabela, $add = '') {
     if (empty($tabela))
         return FALSE;
     $sql = "select $campos from $tabela $add";
     $conexao = conexao();
     $stmt = $conexao->prepare($sql);
     $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);           
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 //função que verifica o maior valor de um campo de uma determinada tabela
