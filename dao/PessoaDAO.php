@@ -20,7 +20,7 @@ function apagar_pessoa() {
             if ($statement->rowCount() > 0)
                 return true;
         } catch (Exception $exc) {
-            console($exc->getMessage());
+            echo $exc->getMessage();
             return false;
         }
     }
@@ -94,7 +94,7 @@ function inserir_pessoa() {
                 return true;
             }
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            echo $exc->getMessage();
             return false;
         }
     }
@@ -162,7 +162,7 @@ function atualizar_pessoa() {
                 return true;
             }                       
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            echo $exc->getMessage();
             return false;
         }
     }

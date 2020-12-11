@@ -64,7 +64,7 @@ and open the template in the editor.
                         echo "<script> alert('Não foi possível apagar o registro' )</script>";
                     }
                 } catch (Exception $exc) {
-                    echo $exc->getTraceAsString();
+                    echo $exc->getMessage();
                 }
             }
         }
