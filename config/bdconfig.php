@@ -29,7 +29,7 @@ function console($msg) {
     echo "console.log('" . $msg . "');";
     echo "</script>";
 }
-
+/*
 function login($log_fun, $sen_fun) {
     try {
         $conexao = conexao();
@@ -43,20 +43,21 @@ function login($log_fun, $sen_fun) {
         $statement = $conexao->prepare($sql);
         $statement->bindParam(1, $login);
         $statement->bindParam(2, $senha);
-        if ($statement->execute()) {
-            $statement->fetchAll(PDO::FETCH_ASSOC);
+        $statement->execute();
+        if ($statement->rowCount() > 0) {            
             if ($statement->rowCount() > 0):
                 echo "Usuário Encontrado";
-                inicia_sessao($login, $senha);
+                return inicia_sessao($login, $senha);
             else:
-                echo "Usuário Não cadastrado <br>";
-                insert_Login($login, $senha);
+                return false;
+                //echo "Usuário Não encontrado <br>";
+             //   insert_Login($login, $senha);
             endif;
         }
     } catch (Exception $exc) {
-        echo $exc->getTraceAsString();
+        echo $exc->getMessage();
     }
-}
+}*/
 
 //Função de consulta que Recebe os Campos, a tabela e potencialmente uma condição ou complementos do select
 //retorna o objeto statement de resultado com o conjunto de tuplas recuperadas pela pesquisa
@@ -99,12 +100,7 @@ function limpar($campo, $int = false) {
     }
 }
 
-//deverá ser mudada para dao de Login
-function inicia_sessao($login, $senha) {
-    $_SESSION['usuario'] = $login;
-    $_SESSION['senha'] = $senha;
-    header("Location: FormPessoa.php");
-}
+
 
 //deve ser mudada para a controler de funcionário
 function insert_Login($usuario, $senha) {

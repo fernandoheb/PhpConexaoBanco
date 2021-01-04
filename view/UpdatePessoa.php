@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <?php        
+        session_start(); 
         include_once '../dao/PessoaDAO.php';
+        
         
         //verifica se recebeu a chave que será utilizada para atualizar o registro
         if(isset($_GET['id'])) {
@@ -31,6 +27,7 @@ and open the template in the editor.
         $linha = $resultado[0];
         //var_dump($linha);
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">

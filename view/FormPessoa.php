@@ -1,5 +1,7 @@
 <?php session_start(); 
  include_once '../dao/PessoaDAO.php';
+ NaoEstaLogado();
+        
 ?>
 
 <!DOCTYPE html>
