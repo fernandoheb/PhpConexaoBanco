@@ -120,8 +120,8 @@ function inserir_pessoa() {
             $statement->execute();
             //Verifica a quantidade de linhas afetadas
             if ($statement->rowCount() > 0) {
-                inserir_email($id,$email);
-               // echo console($conexao->lastInsertId('locador_id_pes_seq'));
+                inserir_email($id, $email);
+                // echo console($conexao->lastInsertId('locador_id_pes_seq'));
                 return true;
             }
         } catch (Exception $exc) {
@@ -132,10 +132,7 @@ function inserir_pessoa() {
     return false;
 }
 
-
-
-
-function inserir_email($id,$email) {
+function inserir_email($id, $email) {
     try {
         $sql = 'insert into email_pj (id,email) values (?,?) ';
 //Prepara para inserir
@@ -229,7 +226,6 @@ function consulta_pessoas($campos = '*', $add = '') {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
 function login($log_fun, $sen_fun) {
     try {
         $conexao = conexao();
@@ -239,35 +235,33 @@ function login($log_fun, $sen_fun) {
         $senha = filter_var($sen_fun, FILTER_SANITIZE_STRING);
 
         //consultar se existe no banco
-        $sql = 'select * from funcionario where log_fun = ? and sen_fun = ?';
+        $sql = 'select pessoa.nom_pes as nome, funcionario.log_fun as login, funcionario.sen_fun as senha
+                from funcionario join pessoa on pessoa.id_pes = funcionario.id_pes
+                    where log_fun = ? and sen_fun = ?';
         $statement = $conexao->prepare($sql);
         $statement->bindParam(1, $login);
         $statement->bindParam(2, $senha);
         $statement->execute();
-        if ($statement->rowCount() > 0) :          
-                return inicia_sessao($login, $senha);
-            else:
-                return false;                
-            endif;
-        
+        if ($statement->rowCount() > 0) :
+            $res = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return inicia_sessao($res[0]);
+        else:
+            return false;
+        endif;
     } catch (Exception $exc) {
         echo $exc->getMessage();
     }
 }
 
-
-
-//deverá ser mudada para dao de Login
-function inicia_sessao($login, $senha) {
-    
-    $_SESSION['usuario'] = $login;
-    $_SESSION['senha'] = $senha;    
+function inicia_sessao($res) {
+    $_SESSION['nome'] = $res['nome'];
+    $_SESSION['usuario'] = $res['login'];
+    $_SESSION['senha'] = $res['senha'];
     //header("Location: FormPessoa.php");
     return true;
 }
 
 function NaoEstaLogado() {
-    if(!isset($_SESSION['usuario'])) 
-       header('Location: login.php');     
-     
+    if (!isset($_SESSION['usuario']))
+        header('Location: login.php');
 }
