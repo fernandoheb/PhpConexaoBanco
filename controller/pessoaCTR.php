@@ -38,7 +38,13 @@
                     } else if (isset($_POST['login'])) {
                         
                         if (login($_POST['log_fun'], $_POST['sen_fun'])) {
-                            echo print_r($_SESSION);
+                           //echo print_r($_SESSION);
+                           //
+                           if($_SESSION['tipo']=='m'){
+                              header('Location: ../view/matriz.php'); 
+                           } else {
+                              header('Location: ../view/filial.php'); 
+                           }
                             // header('Location: ../view/FormPessoa.php');
                             // echo "<a href= 'formPessoa.php'> Cadastro </a>"; 
                         } else {

@@ -235,8 +235,12 @@ function login($log_fun, $sen_fun) {
         $senha = filter_var($sen_fun, FILTER_SANITIZE_STRING);
 
         //consultar se existe no banco
-        $sql = 'select pessoa.nom_pes as nome, funcionario.log_fun as login, funcionario.sen_fun as senha
-                from funcionario join pessoa on pessoa.id_pes = funcionario.id_pes
+        $sql = 'select pessoa.nom_pes as nome, 
+                funcionario.tipo, funcionario.log_fun as login, 
+                funcionario.sen_fun as senha,
+                funcionario.adm as admin
+                from funcionario 
+                join pessoa on pessoa.id_pes = funcionario.id_pes
                     where log_fun = ? and sen_fun = ?';
         $statement = $conexao->prepare($sql);
         $statement->bindParam(1, $login);
@@ -255,13 +259,18 @@ function login($log_fun, $sen_fun) {
 
 function inicia_sessao($res) {
     $_SESSION['nome'] = $res['nome'];
+    $_SESSION['tipo'] = $res['tipo'];
     $_SESSION['usuario'] = $res['login'];
-    $_SESSION['senha'] = $res['senha'];
-    //header("Location: FormPessoa.php");
+    $_SESSION['senha'] = $res['senha']; 
+    //0 usuario comum se for 1 é admin
+    $_SESSION['admin'] = $res['admin'];
     return true;
 }
 
 function NaoEstaLogado() {
     if (!isset($_SESSION['usuario']))
         header('Location: login.php');
+    
+    
+    
 }

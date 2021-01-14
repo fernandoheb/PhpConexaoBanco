@@ -45,7 +45,7 @@ footer {
     padding-bottom: 1em;
 }
 body{
-    background-color: lightgray;
+      background-color: lightgray;
 }
 th {
     text-transform: capitalize;
@@ -65,11 +65,8 @@ td{
     width: 100%;
 }
 nav {
-    background-color: #fff;
-    margin: auto 0;
     border-radius: 30px;
-    width: 100%;
-        min-height: 40px;
+
 }
 .responsive-iframe {
     position: absolute;
