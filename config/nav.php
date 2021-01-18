@@ -2,11 +2,13 @@
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow clearfix">
     <a href="login.php"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Gnome-home.svg/1200px-Gnome-home.svg.png" class="h-auto d-inline-block align-top float-left rounded-circle" alt="" width="30px">
     </a>
+    <a href="login_ajax_jquery.php"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Gnome-home.svg/1200px-Gnome-home.svg.png" class="h-auto d-inline-block align-top float-left rounded-circle" alt="" width="30px">
+    </a>
     <a class="navbar-brand float-left" href="FormPessoa.php">       
         Cadastro de Pessoa
     </a>
-    <a class="navbar-brand btn  btn-link" href="FormPessoa.php">       
-        Cadastro de Funcionarios
+    <a class="navbar-brand btn  btn-link" href="FormPessoa_ajax.php">       
+        Cadastro de Pessoa Ajax
     </a>
     <a class="navbar-brand btn btn-link" href="FormPessoa.php">       
         Cadastro de Locador
