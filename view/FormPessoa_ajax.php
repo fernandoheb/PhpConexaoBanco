@@ -1,4 +1,4 @@
-<?php session_start(); 
+ <?php session_start(); 
  include_once '../dao/PessoaDAO.php';
  NaoEstaLogado();
         
@@ -168,7 +168,8 @@ and open the template in the editor.
             
             <script>
                 $(document).ready(function () {
-                    $('.apagar').click(function(){                                                                     
+                    $('.apagar').click(function(){ 
+                        //pega o valor do botão e salva na url
                         var url = $(this).val();  
                         console.log(url);
                         $.ajax({
@@ -177,8 +178,6 @@ and open the template in the editor.
                             type: 'GET',                            
                             success: function (data, textStatus) {
                                 alert( data );
-                                
-                                                               
                             },
                             error: function (xhr, er) {
                                 $('#result').html('<p class="bg-danger p-5 text-center">Erro ' + xhr.status + ' - ' + xhr.statusText + '<br />Tipo de erro: ' + er + '</p>');

@@ -36,28 +36,45 @@ and open the template in the editor.
                     <button type="reset" class="btn btn-warning mb-2" name="cancelar">Limpar</button>
                 </form>
             </div>
+            
             <div id="result"></div>
 
             <script>
+                
+                
+                //document ready garante que os scripts só serão executados depois que a página for carregada
                 $(document).ready(function () {
-                    $('#form-login').submit(function (e) {
-                        e.preventDefault();
-                        var login = 'login=true&'+$('#form-login').serialize();
-                        console.log(login);
+                    
+                    
+                    // .submit executa a ação quando clicar no botão submit do form
+                    $('#form-login').submit(function (evento) {
+                        //não deixa acontecer o comportamento padrão do evento submit
+                        evento.preventDefault();
+                        //pega os dados do formulário log_fun=fff&sen_fun=hahauha
+                        var dados = $('#form-login').serialize();
+                        //adiciona a ação do login
+                        dados  = dados +  '&login=true';
+                        //console.log(login);
+                        
                         $.ajax({
                             url: '../controller/pessoaCTR_ajax.php',
                             dataType: 'html',
                             type: 'POST',
-                            data: login,
+                            data: dados,
                             success: function (data, textStatus) {
+                                //document.getElementById('result').innerHTML = <p class="bg-light mx-auto p-5 w-75 text-center">' + data + '</p>'
                                 $('#result').html('<p class="bg-light mx-auto p-5 w-75 text-center">' + data + '</p>');
-                                $('#form-div').hide();                                
+                                //esconde o formulário de login
+                                $('#form-div').hide();  
+                                //alerta de bem vindo
+                                alert('Usuário logado com sucesso'  );
                             },
                             error: function (xhr, er) {
                                 $('#result').html('<p class="bg-danger p-5 text-center">Erro ' + xhr.status + ' - ' + xhr.statusText + '<br />Tipo de erro: ' + er + '</p>');
                             }
                         });
                     });
+                    
                 });
             </script>    
 

@@ -15,6 +15,8 @@
 
                     <?php
 //Funções de ROTA
+                    
+
                     if (isset($_POST['cadastrar'])) {
                         if (inserir_pessoa()):
                             echo "<h1 class= 'text-center' > Pessoa inserida com sucesso </h1>";

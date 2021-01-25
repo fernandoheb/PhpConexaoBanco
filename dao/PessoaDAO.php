@@ -264,6 +264,11 @@ function inicia_sessao($res) {
     $_SESSION['senha'] = $res['senha']; 
     //0 usuario comum se for 1 é admin
     $_SESSION['admin'] = $res['admin'];
+    if ($_SESSION['admin'] == 1) {
+        $_SESSION['cor'] = 'bg-dark';
+        $_SESSION['outrovalor'] = '';
+    }
+    
     return true;
 }
 
