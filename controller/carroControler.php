@@ -2,8 +2,8 @@
 
 include_once '../dao/CarroDAO.php';
 
-if (isset($_GET["id"])) { 
-   $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+if (isset($_GET["Carroid"])) { 
+   $id = filter_input(INPUT_GET, 'Carroid', FILTER_SANITIZE_NUMBER_INT);   
     echo json_encode(selecionarCarro($id));
-    //{nome:valor,campo:valor}
+    // converte de vetor para JSON {nome:valor,campo:valor}
 }

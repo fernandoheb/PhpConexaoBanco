@@ -12,49 +12,55 @@ and open the template in the editor.
     </head>
     <body>
         <div class='container' > 
-        <form action="javascript:void%200"  >
-            <label for='cod' class='text-light'> Código carro: </label>
-            <input type="number" class="form-control" id="cod" name="cod">             
-        </form>
-        <div class=' mt-1 rounded bg-light' >
-        <div id="resultado"> </div>
-        </div>    
-        </div>
-        <script>
-
-            $(document).ready(function () {
-                $('#cod').change(function () {
-                    $.ajax({
-                        url: '../controller/carroControler.php?id=' + $(this).val(),
-                        dataType: 'html',
-                        type: 'GET',
-                        success: function (data, textStatus) {
-                           // var  obj = {'nome':'valor','idade':21};
-                            var carro = jQuery.parseJSON(data);                          
-                            console.log(carro.length); 
-                            if (carro.length > 0) {
-                                carro = carro[0];
-                                $("#resultado").html('<h2>' + carro.pla_car + '</h2>'
-                                                    +'<h2>' + carro.mar_car + '</h2>'
-                                                    +'<h3>' + carro.des_car + '</h3>');
-                            } else {
-                                $("#resultado").html('');
+            <form action="javascript:void%200"  >
+                <label for='cod' class='text-light'> Código carro: </label>
+                <input type="number" class="form-control" id="cod" name="cod">             
+            </form>
+            <div class=' mt-1 rounded bg-light' >
+                <div>    
+                    <h3 id="placa"> </h3>
+                    <h3 id="marca"> </h3>
+                    <h3 id="descricao"> </h3>
+                </div>    
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $('#cod').change(function () {
+                        $.ajax({
+                            url: '../controller/carroControler.php?Carroid=' + $(this).val(),
+                            dataType: 'html',
+                            type: 'GET',
+                            success: function (data, textStatus) {
+                                // var  obj = {'nome':'valor','idade':21};
+                                var VetorCarros = jQuery.parseJSON(data);
+                                console.log(VetorCarros.length);
+                                if (VetorCarros.length > 0) {
+                                    carro = VetorCarros[0];
+                                    $("#descricao").html(carro.des_car);
+                                    $("#placa").html(carro.pla_car);
+                                    $("#marca").html(carro.mar_car);
+                                            
+                                } else {
+                                    $("#descricao").html('');
+                                    $("#placa").html('');
+                                    $("#marca").html('');
+                                    $("#resultado").html('');
+                                }
+                            },
+                            error: function (xhr, er) {
+                                $('#resultdo').html('<p class="bg-danger p-5 text-center">Erro ' + xhr.status + ' - ' + xhr.statusText + '<br />Tipo de erro: ' + er + '</p>');
                             }
-                        },
-                        error: function (xhr, er) {
-                            $('#resultdo').html('<p class="bg-danger p-5 text-center">Erro ' + xhr.status + ' - ' + xhr.statusText + '<br />Tipo de erro: ' + er + '</p>');
-                        }
+                        });
                     });
+
+
                 });
 
 
-            });
 
 
 
-
-
-        </script>
+            </script>
 
 
     </body>
