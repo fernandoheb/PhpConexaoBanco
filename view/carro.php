@@ -32,14 +32,17 @@ and open the template in the editor.
                             type: 'GET',
                             success: function (data, textStatus) {
                                 // var  obj = {'nome':'valor','idade':21};
+                                //converte o retorno em objetos
                                 var VetorCarros = jQuery.parseJSON(data);
                                 console.log(VetorCarros.length);
-                                if (VetorCarros.length > 0) {
-                                    carro = VetorCarros[0];
+                                //verifica se a busca encontrou algum resultado
+                                if (VetorCarros.length > 0) {                                     
+                                    //pega o valor do primeiro registro retornado
+                                    var carro = VetorCarros[0];
+                                    
                                     $("#descricao").html(carro.des_car);
                                     $("#placa").html(carro.pla_car);
-                                    $("#marca").html(carro.mar_car);
-                                            
+                                    $("#marca").html(carro.mar_car);                                            
                                 } else {
                                     $("#descricao").html('');
                                     $("#placa").html('');

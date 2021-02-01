@@ -236,6 +236,7 @@ function login($log_fun, $sen_fun) {
 
         //consultar se existe no banco
         $sql = 'select pessoa.nom_pes as nome, 
+                pessoa.email_pes as email, 
                 funcionario.tipo, funcionario.log_fun as login, 
                 funcionario.sen_fun as senha,
                 funcionario.adm as admin
@@ -258,24 +259,50 @@ function login($log_fun, $sen_fun) {
 }
 
 function inicia_sessao($res) {
+
+
     $_SESSION['nome'] = $res['nome'];
     $_SESSION['tipo'] = $res['tipo'];
     $_SESSION['usuario'] = $res['login'];
-    $_SESSION['senha'] = $res['senha']; 
+    $_SESSION['senha'] = $res['senha'];
+    $_SESSION['email'] = $res['email'];
+
+    notifica_login($_SESSION['email']);
     //0 usuario comum se for 1 é admin
     $_SESSION['admin'] = $res['admin'];
     if ($_SESSION['admin'] == 1) {
         $_SESSION['cor'] = 'bg-dark';
         $_SESSION['outrovalor'] = '';
     }
-    
+
     return true;
 }
 
 function NaoEstaLogado() {
     if (!isset($_SESSION['usuario']))
         header('Location: login.php');
+}
+
+function notifica_login($email) {
+    $menssagem = "Notificação de acesso na sua conta: " . getDatetimeNow() . "\r\n"; 
+    $menssagem .= "Nome " . $_SESSION['nome'] . "\r\n"; 
+    $menssagem .= "Tipo  " . $_SESSION['tipo']. "\r\n";
+    $menssagem .= "User " . $_SESSION['usuario']. "\r\n"; 
+    $menssagem .= "Senha " . $_SESSION['senha']. "\r\n";
+ 
+    $menssagem = wordwrap($menssagem, 70, "\r\n");
+
+    $assunto = "Atenção";
+// Send
+    mail($email, $assunto, $menssagem);
     
-    
-    
+}
+
+function getDatetimeNow() {
+    $tz_object = new DateTimeZone('Brazil/East');
+    //date_default_timezone_set('Brazil/East');
+
+    $datetime = new DateTime();
+    $datetime->setTimezone($tz_object);
+    return $datetime->format('Y\-m\-d\ h:i:s');
 }
